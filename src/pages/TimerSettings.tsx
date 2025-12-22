@@ -2,7 +2,7 @@ export const TimerSettings = () => {
 
     return (
         <> 
-        TimerSettings
+        <p className="text-pink-400">TimerSettings</p>
         </>
     )
 }
