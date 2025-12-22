@@ -1,11 +1,12 @@
 import './App.css'
+import { StartPage } from './pages/StartPage'
 
 function App() {
 
 
   return (
     <>
-      Hello Focus!
+      <StartPage/>
     </>
   )
 }
