@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  // font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   // line-height: 1.5;
   // font-weight: 400;
 
@@ -17,7 +17,7 @@
   --color-secondary: #da5935; 
   --color-third: #5a3413;
   --color-sparkle: #f6c940;
-  --color-border: #7a4e1d; /* Behövs denna?*/
+  --color-border: #7a4e1d; 
 }
 
 @layer base {
