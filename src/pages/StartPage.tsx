@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router";
 import tomoicon from "../assets/tomoicon.png";
+import { useState } from "react";
+import { PermissionModal } from "../components/PermissionModal";
 
 export const StartPage = () => {
+    const SHOW_PERMISSIONS_MODAL = true; // Ändra till false sen, alt radera. 
     const navigate = useNavigate(); 
-   
+    const [showPermissionModal, setShowPermissionModal] = useState(SHOW_PERMISSIONS_MODAL || !localStorage.getItem("tomofocus_permissions"));
+
     const handleStart = () => {
         navigate("/settings");
     };
@@ -13,20 +17,21 @@ export const StartPage = () => {
         <div>
             <main>
                 <h1 className="sr-only">TomoFocus, a timer-focus app</h1>
-                <div className="m-7 border-2 border-border rounded-2xl p-6  bg-background flex flex-col gap-6">
-                    <p>TomoFocus hjälper dig att arbeta fokuserat med Pomodoro-tekniken.
-                    Arbeta i korta fokuserade pass med regelbundna pauser för bättre
-                    koncentration och mindre stress. ELLER SOM DU STÄLLER IN
-                    </p>
+                <div className="m-7 border-2 border-border rounded-2xl p-6  bg-background flex flex-col gap-2">
+                    <p>TomoFocus helps you stay focused using the Pomodoro technique.</p>
+                    <p>Work in short, focused sessions with regular breaks to improve concentration and reduce stress.</p>
+                    <p>Choose between the classic Pomodoro setup or create your own custom time settings.</p>
 
-                    <p className="mt-3">Klicka på knappen nedan för att starta din timer</p>
+                    <p className="mt-6 font-bold">Click the button below to get started</p>
                     <button
                     onClick={handleStart}
-                    className="bg-red transition border-2 border-border text-secondary py-3 px-6 rounded-xl">Time to Focus!</button>
+                    className="bg-primary hover:bg-sparkle transition-colors border-2 border-border text-secondary py-3 px-6 rounded-xl">Time to Focus!</button>
                     <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto"/>
-
                 </div> 
             </main>
+            {showPermissionModal && (
+                <PermissionModal onClose={() => setShowPermissionModal(false)} />
+            )}
         </div>
         </>
     )
