@@ -29,7 +29,7 @@ export const TimerSettings = () => {
                 </div>
 
                 <div className="flex gap-3 mt-4">
-                    <button onClick={() => navigate("/start")} className="flex-1 border-2 border-border rounded-xl py-2">Go back</button>
+                    <button onClick={() => navigate("/")} className="flex-1 border-2 border-border rounded-xl py-2">Go back</button>
                     <button className="flex-1 bg-yellow-300 border-2 border-border rounded-xl py-2 font-semibold">Start timer</button>
                 </div>
 

@@ -13,23 +13,23 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/start",
+        index: true,
         element: <StartPage />,
       },
       {
-        path: "/settings",
+        path: "settings",
         element: <TimerSettings />,
       },
       {
-        path: "/custom",
+        path: "custom",
         element: <CustomSettings />,
       },
       {
-        path: "/session",
+        path: "session",
         element: <SessionPage />,
       },
       {
-        path: "/complete",
+        path: "complete",
         element: <CompletePage />,
       },
     ],
