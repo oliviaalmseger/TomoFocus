@@ -15,7 +15,7 @@ export const StartPage = () => {
     return (
         <> 
         <div>
-            <main>
+            <section>
                 <h1 className="sr-only">TomoFocus, a timer-focus app</h1>
                 <div className="m-7 border-2 border-border rounded-2xl p-6  bg-background flex flex-col gap-2">
                     <p>TomoFocus helps you stay focused using the Pomodoro technique.</p>
@@ -28,11 +28,11 @@ export const StartPage = () => {
                     className="bg-primary hover:brightness-110 transition-colors border-2 border-border text-third py-3 px-6 rounded-xl">Time to Focus!</button>
                     <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto"/>
                 </div> 
-            </main>
+            </section>
             {showPermissionModal && (
                 <PermissionModal onClose={() => setShowPermissionModal(false)} />
             )}
         </div>
         </>
-    )
-}
+    );
+};
