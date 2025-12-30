@@ -56,13 +56,13 @@ export const TimerSettings = () => {
       "tomofocus_last_settings",
       JSON.stringify(numericInputs)
     );
-    navigate("session");
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isValid) return;
     handleStart();
+    navigate("/session")
   };
 
   const isValid =
