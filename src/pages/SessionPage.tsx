@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
+const DEV_SECONDS_MODE = true; // <-- OBS
+
 type SessionType = "work" | "break"; 
 
 interface iTimerSettings {
@@ -16,11 +18,15 @@ export const SessionPage = () => {
         const saved = localStorage.getItem("tomofocus_last_settings");
         return saved ? JSON.parse(saved) : { focusMinutes: 25, breakMinutes: 5, sets: 4};
     }, []);
-    
 
+    const toSeconds = (value: number) =>
+    DEV_SECONDS_MODE ? value : value * 60;
+
+    
     const [sessionType, setSessionType] = useState<SessionType>("work");
     const [currentSet, setCurrentSet] = useState(0); 
-    const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
+    // const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
+    const [timeLeft, setTimeLeft] = useState(toSeconds(settings.focusMinutes)); // BYT
     const [isFinished, setIsFinished] = useState(false); 
 
     const handleSessionEnd = useCallback((): number => {
@@ -37,11 +43,13 @@ export const SessionPage = () => {
             }
             setCurrentSet(nextSet);
             setSessionType("break");
-            return settings.breakMinutes * 60;
+            // return settings.breakMinutes * 60;
+            return toSeconds(settings.breakMinutes); // BYT
         }
-        // setCurrentSet((prev) => prev + 1);
+
         setSessionType("work");
-        return settings.focusMinutes * 60;
+        // return settings.focusMinutes * 60;
+        return toSeconds(settings.focusMinutes); //BYT
 
     }, [sessionType, currentSet, settings, navigate, isFinished, timeLeft]);
 
@@ -65,6 +73,9 @@ export const SessionPage = () => {
     }, [isFinished]);
 
     const formatTime = (seconds: number) => {
+        if (DEV_SECONDS_MODE) { // Ta bort dessa 3 rader sen! 
+            return `${seconds}s`;
+        }
         const minutes = Math.floor(seconds/60);
         const remainingSeconds = seconds % 60;
         return `${minutes.toString().padStart(2, "0")}: ${remainingSeconds.toString().padStart(2, "0")}`;
