@@ -1,26 +1,68 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
 type SessionType = "work" | "break"; 
 
+interface iTimerSettings {
+    focusMinutes: number;
+    breakMinutes: number;
+    sets: number;
+}
+
 export const SessionPage = () => {
     const navigate = useNavigate();
 
-    const [sessionType, setSessionType] = useState<SessionType>("work");
+    const settings = useMemo<iTimerSettings>(() => {
+        const saved = localStorage.getItem("tomofocus_last_settings");
+        return saved ? JSON.parse(saved) : { focusMinutes: 25, breakMinutes: 5, sets: 4};
+    }, []);
+    
 
-    const [timeLeft, setTimeLeft] = useState(25 * 60); 
+    const [sessionType, setSessionType] = useState<SessionType>("work");
+    const [currentSet, setCurrentSet] = useState(0); 
+    const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
+    const [isFinished, setIsFinished] = useState(false); 
+
+    const handleSessionEnd = useCallback((): number => {
+        if (isFinished) return timeLeft; 
+
+        if (sessionType === "work") {
+            const nextSet = currentSet + 1;
+
+            if (nextSet === settings.sets) {
+                setCurrentSet(nextSet);
+                setIsFinished(true);
+                navigate("/complete");
+                return timeLeft;
+            }
+            setCurrentSet(nextSet);
+            setSessionType("break");
+            return settings.breakMinutes * 60;
+        }
+        // setCurrentSet((prev) => prev + 1);
+        setSessionType("work");
+        return settings.focusMinutes * 60;
+
+    }, [sessionType, currentSet, settings, navigate, isFinished, timeLeft]);
+
+    const handleSessionEndRef = useRef<() => number>(() => 0);
     useEffect(() => {
+        handleSessionEndRef.current = handleSessionEnd;
+    }, [handleSessionEnd]);
+
+    useEffect(() => {
+        if (isFinished) return;
+
         const interval = setInterval(() => {
             setTimeLeft((prev) => {
                 if (prev <= 1) {
-                    clearInterval(interval);
-                    return 0;
+                    return handleSessionEndRef.current();
                 }
                 return prev - 1;
             });
         }, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [isFinished]);
 
     const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds/60);
@@ -31,9 +73,12 @@ export const SessionPage = () => {
 
     return (
         <> 
-        <div className="flex justify-center min-h-screen px-4">
+        <div className="flex justify-center px-4">
             <section className="w-full max-w-[420px] flex flex-col items-center text-center gap-6 py-10">
-                <p className="text-sm opacity-70">Set 1 of 4</p>
+
+                <p className="text-sm opacity-70">
+                    Set {sessionType === "work" ? currentSet + 1 : currentSet} of {settings.sets}
+                </p>
                 <h1 className="text-xl font-semibold">
                     {sessionType === "work" ? "Focus Session" : "Break Session"}
                 </h1>
@@ -44,13 +89,13 @@ export const SessionPage = () => {
                     </span>
                 </div>
 
-                <div className="text-5xl font-bold tracking-wide">
+                <div className="text-7xl font-bold tracking-wide">
                     {formatTime(timeLeft)}
                 </div>
 
-                <div className="flex gap-4 w-full mt-6">
-                    <button onClick={() => setSessionType(sessionType === "work" ? "break" : "work")} className="flex-1 bg-border text-background rounded-xl py-2 flex items-center justify-center gap-2">Pause</button>
-                    <button onClick={() => navigate("start")} className="flex-1 border-2 border-border rounded-xl py-2">Reset</button>
+                <div className="flex gap-4 w-full my-6">
+                    <button disabled className="flex-1 bg-border hover:brightness-110 text-background rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">Pause</button>
+                    <button onClick={() => navigate("/")} className="flex-1 border-2 border-border rounded-xl py-2 cursor-pointer">Reset/Home</button>
                 </div>
             </section>
         </div>
