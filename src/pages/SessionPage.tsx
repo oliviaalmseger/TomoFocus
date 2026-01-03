@@ -28,6 +28,7 @@ export const SessionPage = () => {
     // const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
     const [timeLeft, setTimeLeft] = useState(toSeconds(settings.focusMinutes)); // BYT
     const [isFinished, setIsFinished] = useState(false); 
+    const [timerStatus, setTimerStatus] = useState<"running" | "paused">("running");
 
     const handleSessionEnd = useCallback((): number => {
         if (isFinished) return timeLeft; 
@@ -59,7 +60,7 @@ export const SessionPage = () => {
     }, [handleSessionEnd]);
 
     useEffect(() => {
-        if (isFinished) return;
+        if (isFinished || timerStatus === "paused") return;
 
         const interval = setInterval(() => {
             setTimeLeft((prev) => {
@@ -70,7 +71,7 @@ export const SessionPage = () => {
             });
         }, 1000);
         return () => clearInterval(interval);
-    }, [isFinished]);
+    }, [isFinished, timerStatus]);
 
     const formatTime = (seconds: number) => {
         if (DEV_SECONDS_MODE) { // Ta bort dessa 3 rader sen! 
@@ -105,7 +106,11 @@ export const SessionPage = () => {
                 </div>
 
                 <div className="flex gap-4 w-full my-6">
-                    <button disabled className="flex-1 bg-border hover:brightness-110 text-background rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">Pause</button>
+                    <button 
+                    onClick={() => setTimerStatus((prev) => (prev === "running" ? "paused" : "running"))} 
+                    className="flex-1 bg-border hover:brightness-110 text-background rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">
+                        {timerStatus === "running" ? "Pause" : "Resume"}
+                    </button>
                     <button onClick={() => navigate("/")} className="flex-1 border-2 border-border rounded-xl py-2 cursor-pointer">Reset/Home</button>
                 </div>
             </section>
