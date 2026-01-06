@@ -26,7 +26,7 @@ export const CompletePage = () => {
                     <img src={completeImage} alt="Celebrating tomato character" className="w-full h-full object-contain"/>
                 </div>
 
-                <button onClick={() => navigate("/")} className="my-4 bg-primary hover:brightness-110 text-third rounded-xl px-6 py-3 cursor-pointer">
+                <button onClick={() => navigate("/")} className="my-4 bg-primary hover:brightness-110 text-third rounded-xl px-6 py-3 font-semibold cursor-pointer">
                     Return to home
                 </button>
             </section>
