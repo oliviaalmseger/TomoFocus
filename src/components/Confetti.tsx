@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const COLORS = ["bg-primary", "bg-secondary", "bg-third", "bg-sparkle"];
 
@@ -7,32 +7,36 @@ type GlitterPiece = {
   left: number;
   delay: number;
   duration: number;
+  horizontal: number;
+  vertical: number;
 };
 
 export const Confetti = () => {
   const [glitter] = useState<GlitterPiece[]>(() =>
-    Array.from({ length: 40 }, (_, i) => ({
+    Array.from({ length: 60 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 0.5,
-      duration: Math.random() * 2,
+      duration: Math.random() * 2.5,
+      horizontal: (Math.random() - 0.50) * 60,
+      vertical: 40 + Math.random() * 50,
     }))
   );
 
   return (
     <>
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-50">
-        {glitter.map((g, i) => (
+        {glitter.map((glitter, i) => (
           <span
-            key={g.id}
-            className={`absolute w-2 h-3 animate-confetti ${
-              COLORS[i % COLORS.length]
-            }`}
+            key={glitter.id}
+            className={`absolute bottom-0 w-2 h-3 animate-confetti ${COLORS[i % COLORS.length]}`}
             style={{
-              left: `${g.left}%`,
-              animationDelay: `${g.delay}s`,
-              animationDuration: `${g.duration}s`,
-            }}
+              left: `${glitter.left}%`,
+              animationDelay: `${glitter.delay}s`,
+              animationDuration: `${5.5 + glitter.duration}s`,
+              "--x": `${glitter.horizontal}vw`,
+              "--y": `${glitter.vertical}vh`
+            } as React.CSSProperties}
           />
         ))}
       </div>

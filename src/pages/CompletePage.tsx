@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router"
 import completeImage from "../assets/complete-image.png";
+import { Confetti } from "../components/Confetti";
 
 export const CompletePage = () => {
     const navigate = useNavigate(); 
@@ -7,6 +8,7 @@ export const CompletePage = () => {
 
     return (
         <> 
+        <Confetti/>
         <div className="flex justify-center px-4">
             <section className="w-full max-w-[420px] flex flex-col items-center text-center py-10">
                 <h1 className="text-2xl font-bold mb-4">
