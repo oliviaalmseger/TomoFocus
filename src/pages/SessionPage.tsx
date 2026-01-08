@@ -7,6 +7,7 @@ import focus45 from "../assets/focus-45.png";
 import focus60 from "../assets/focus-60.png";
 import focus75 from "../assets/focus-75.png";
 import breakImage from "../assets/break-image.png";
+import { playSound } from "../utils/sound";
 
 
 
@@ -49,16 +50,19 @@ export const SessionPage = () => {
             if (nextSet === settings.sets) {
                 setCurrentSet(nextSet);
                 setIsFinished(true);
+                playSound("success");
                 navigate("/complete");
                 return timeLeft;
             }
             setCurrentSet(nextSet);
             setSessionType("break");
+            playSound("break");
             return settings.breakMinutes * 60;
             //return toSeconds(settings.breakMinutes); // BYT m ovanstående för sekunder
         }
 
         setSessionType("work");
+        playSound("work");
         setSessionDuration(settings.focusMinutes * 60);
         return settings.focusMinutes * 60;
         //return toSeconds(settings.focusMinutes); //BYT m ovanstående rad för sekunder

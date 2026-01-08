@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { playSound } from "../utils/sound";
 
 type PresetType = "classic" | "last" | "custom";
 
@@ -62,7 +63,8 @@ export const TimerSettings = () => {
     e.preventDefault();
     if (!isValid) return;
     handleStart();
-    navigate("/session")
+    navigate("/session");
+    playSound("start");
   };
 
   const isValid =
