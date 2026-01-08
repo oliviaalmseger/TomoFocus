@@ -51,7 +51,7 @@ export const SessionPage = () => {
                 setCurrentSet(nextSet);
                 setIsFinished(true);
                 playSound("success");
-                navigate("/complete");
+                // navigate("/complete");
                 return timeLeft;
             }
             setCurrentSet(nextSet);
@@ -67,7 +67,7 @@ export const SessionPage = () => {
         return settings.focusMinutes * 60;
         //return toSeconds(settings.focusMinutes); //BYT m ovanstående rad för sekunder
 
-    }, [sessionType, currentSet, settings, navigate, isFinished, timeLeft]);
+    }, [sessionType, currentSet, settings, isFinished, timeLeft]);
 
     const handleSessionEndRef = useRef<() => number>(() => 0);
     useEffect(() => {
@@ -87,6 +87,12 @@ export const SessionPage = () => {
         }, 1000);
         return () => clearInterval(interval);
     }, [isFinished, timerStatus]);
+
+    useEffect(() => {
+        if (isFinished) {
+            navigate("/complete");
+        }
+    }, [isFinished, navigate]); 
 
     const formatTime = (seconds: number) => {
         //if (DEV_SECONDS_MODE) { // Ta bort dessa 3 rader sen! 
