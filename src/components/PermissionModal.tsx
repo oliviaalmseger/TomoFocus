@@ -4,8 +4,9 @@ interface iPermissionModalProps {
 
 export const PermissionModal = ({onClose}: iPermissionModalProps) => {
     const handleAllow = async () => {
+        let permission: NotificationPermission = "denied";
         if ("Notification" in window) { // Notifikationer
-            await Notification.requestPermission();
+            permission = await Notification.requestPermission();
         }
 
         const audio = new Audio(); // Initialisera ljud
@@ -17,7 +18,7 @@ export const PermissionModal = ({onClose}: iPermissionModalProps) => {
             "tomofocus_permissions",
             JSON.stringify({
                 audio: true,
-                notifications: true,
+                notifications: permission === "granted",
             })
         );
         onClose();

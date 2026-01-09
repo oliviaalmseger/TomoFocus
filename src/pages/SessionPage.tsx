@@ -8,6 +8,7 @@ import focus60 from "../assets/focus-60.png";
 import focus75 from "../assets/focus-75.png";
 import breakImage from "../assets/break-image.png";
 import { playSound } from "../utils/sound";
+import { showNotification } from "../utils/notifications";
 
 
 
@@ -51,18 +52,21 @@ export const SessionPage = () => {
                 setCurrentSet(nextSet);
                 setIsFinished(true);
                 playSound("success");
+                showNotification("Session complete 🎉", "Time to celebrate!");
                 // navigate("/complete");
                 return timeLeft;
             }
             setCurrentSet(nextSet);
             setSessionType("break");
             playSound("break");
+            showNotification("Break time ☕", "Great job staying focused! Time for a short break.");
             return settings.breakMinutes * 60;
             //return toSeconds(settings.breakMinutes); // BYT m ovanstående för sekunder
         }
 
         setSessionType("work");
         playSound("work");
+        showNotification("Back to focus 🍅", "Break is over. Let's go back to work!");
         setSessionDuration(settings.focusMinutes * 60);
         return settings.focusMinutes * 60;
         //return toSeconds(settings.focusMinutes); //BYT m ovanstående rad för sekunder
