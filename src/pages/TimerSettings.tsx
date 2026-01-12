@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { playSound } from "../utils/sound";
+import { playSound, unlockSounds } from "../utils/sound";
 
 type PresetType = "classic" | "last" | "custom";
 
@@ -62,9 +62,12 @@ export const TimerSettings = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isValid) return;
+    
+    unlockSounds();
+    playSound("start");
+
     handleStart();
     navigate("/session");
-    playSound("start");
   };
 
   const isValid =

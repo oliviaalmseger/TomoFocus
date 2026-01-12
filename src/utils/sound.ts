@@ -31,3 +31,19 @@ export const playSound = (key: keyof typeof sounds) => {
         console.log("Ljud kunde inte spelas, troligtvis blockerat av webbläsaren");
     });
 };
+
+// iOS Safari requires each Audio element to be unlocked by a user interaction 
+// //before it can be played later by timers or state changes
+export const unlockSounds = () => {
+    Object.values(sounds).forEach((sound) => {
+        try {
+            sound.muted = true; 
+            sound.play().catch(() => {});
+            sound.pause();
+            sound.currentTime = 0; 
+            sound.muted = false;
+        } catch {
+            //ignore unlock errors
+        }
+    });
+};
