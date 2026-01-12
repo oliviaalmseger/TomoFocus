@@ -1,0 +1,21 @@
+{
+  "name": "TomoFocus",
+  "short_name": "TomoFocus",
+  "description": "A Pomodoro timer for focused work",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/tomoicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/tomoicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
