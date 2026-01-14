@@ -37,15 +37,19 @@ export const PermissionModal = ({onClose}: iPermissionModalProps) => {
     return (
         <>
         <div role="dialog" aria-modal="true" className="fixed inset-0 bg-white/80 flex items-center justify-center z-50">
-            <div className="bg-background border-4 border-border rounded-2xl pt-8 pb-12 px-6 w-[90%] max-w-sm text-center flex flex-col gap-4">
+            <div className="bg-background border-4 border-border rounded-2xl pt-8 pb-12 px-5 w-[90%] max-w-sm text-center flex flex-col gap-4">
                 <h2 className="text-lg font-bold mb-4">
                     Allow sounds & notifications
                 </h2>
                 <p>TomoFocus uses gentle sounds and notifications to guide you between focus and break sessions.</p>
-                <button onClick={handleAllow} className="bg-primary hover:bg-sparkle transition-colors border-2 border-border mt-4 py-2 rounded-2xl text-border">Allow</button>
+                <section>
+                    <p className="text-left font-style: italic text-border"><span className="font-semibold">Note: </span>Notification support may vary depending on browser and device.</p>
+                    <p className="text-left font-style: italic text-border">For best results on iPhone, add the app to your home screen.</p>
+                </section>
+                <button onClick={handleAllow} className="bg-sparkle hover:brightness-110 transition-colors border-2 border-border mt-4 py-2 rounded-2xl text-third font-semibold">Allow</button>
                 <button onClick={handleDecline} className="underline hover:text-secondary">Decline</button>
             </div>
         </div>
         </>
-    )
-}
+    );
+};
