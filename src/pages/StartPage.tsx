@@ -18,7 +18,7 @@ export const StartPage = () => {
             <div className="w-full max-w-[600px]">
                 <h1 className="sr-only">TomoFocus, a timer-focus app</h1>
                 <div className="m-7 border-2 border-border rounded-2xl p-6 bg-background flex flex-col gap-2">
-                    <p className="mt-5">TomoFocus helps you stay focused using the Pomodoro technique.</p>
+                    <p className="mt-5"><span className="font-semibold">TomoFocus</span> helps you stay focused using the Pomodoro technique.</p>
                     <p>Work in short, focused sessions with regular breaks to improve concentration and reduce stress.</p>
                     <p>Choose between the classic Pomodoro setup or create your own custom time settings.</p>
 
@@ -26,7 +26,7 @@ export const StartPage = () => {
                     <button
                     onClick={handleStart}
                     className="bg-primary hover:brightness-110 transition-colors border-2 border-border text-third py-3 px-6 rounded-xl">Time to Focus!</button>
-                    <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto mt-5 motion-safe:[animation:spin_12s_linear_infinite]"/>
+                    <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto mt-5 motion-safe:animate-spin motion-safe:[animation-duration:12s]"/>
                 </div> 
             </div>
             {showPermissionModal && (
