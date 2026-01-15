@@ -4,8 +4,8 @@
   "description": "A Pomodoro timer for focused work",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#fffaf0",
+  "theme_color": "#9ec376",
   "icons": [
     {
       "src": "/tomoicon-192.png",
