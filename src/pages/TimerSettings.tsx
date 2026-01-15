@@ -62,7 +62,7 @@ export const TimerSettings = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isValid) return;
-    
+
     unlockSounds();
     playSound("start");
 
@@ -119,11 +119,11 @@ export const TimerSettings = () => {
             </button>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-4"
-          >
-            <label className="flex flex-col gap-1 font-semibold">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <label
+              htmlFor="focusMinutes"
+              className="flex flex-col gap-1 font-semibold"
+            >
               {" "}
               Work interval (minutes)
               {preset === "custom" && Number(settings.focusMinutes) <= 0 && (
@@ -132,6 +132,8 @@ export const TimerSettings = () => {
                 </span>
               )}
               <input
+                id="focusMinutes"
+                name="focusMinutes"
                 type="number"
                 inputMode="numeric"
                 min={1}
@@ -141,7 +143,10 @@ export const TimerSettings = () => {
                 className="border-2 border-border rounded-xl p-2"
               />
             </label>
-            <label className="flex flex-col gap-1 font-semibold">
+            <label
+              htmlFor="breakMinutes"
+              className="flex flex-col gap-1 font-semibold"
+            >
               {" "}
               Break interval (minutes)
               {preset === "custom" && Number(settings.breakMinutes) <= 0 && (
@@ -150,6 +155,8 @@ export const TimerSettings = () => {
                 </span>
               )}
               <input
+                id="breakMinutes"
+                name="breakMinutes"
                 type="number"
                 inputMode="numeric"
                 value={settings.breakMinutes}
@@ -158,7 +165,7 @@ export const TimerSettings = () => {
                 className="border-2 border-border rounded-xl p-2"
               />
             </label>
-            <label className="flex flex-col gap-1 font-semibold">
+            <label htmlFor="sets" className="flex flex-col gap-1 font-semibold">
               {" "}
               Number of sets
               {preset === "custom" && Number(settings.sets) <= 0 && (
@@ -167,6 +174,8 @@ export const TimerSettings = () => {
                 </span>
               )}
               <input
+                id="sets"
+                name="sets"
                 type="number"
                 inputMode="numeric"
                 value={settings.sets}
