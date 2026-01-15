@@ -85,7 +85,7 @@ export const TimerSettings = () => {
             <button
               type="button"
               onClick={() => selectPreset("classic")}
-              className={`flex-1 py-2 rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center rounded-xl border-2 ${
                 preset === "classic"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
                   : "bg-background hover:brightness-110 border-border"
@@ -98,7 +98,7 @@ export const TimerSettings = () => {
               onClick={() => selectPreset("last")}
               disabled={!hasLastSettings}
               aria-disabled={!hasLastSettings}
-              className={`flex-1 py-2 rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 ${
                 preset === "last"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
                   : "bg-background hover:brightness-110 border-border"
@@ -109,7 +109,7 @@ export const TimerSettings = () => {
             <button
               type="button"
               onClick={() => selectPreset("custom")}
-              className={`flex-1 py-2 rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 ${
                 preset === "custom"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
                   : "bg-background hover:brightness-110 border-border"
