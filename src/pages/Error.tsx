@@ -1,11 +1,3 @@
-// export const Error = () => {
-//     return (
-//         <>
-//         <h2>Oops, something went wrong!</h2>
-//         </>
-//     )
-// }
-
 import { useNavigate } from "react-router";
 import tomoError from "../assets/error.png"; 
 
@@ -26,7 +18,7 @@ export const Error = () => {
           Oops, something went wrong!
         </h1>
 
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-third">
           The tomato is as confused as you are.
         </p>
 
@@ -40,4 +32,3 @@ export const Error = () => {
     </section>
   );
 };
-

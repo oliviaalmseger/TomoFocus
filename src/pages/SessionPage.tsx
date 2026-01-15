@@ -11,9 +11,6 @@ import { playSound } from "../utils/sound";
 import { showNotification } from "../utils/notifications";
 
 
-
-//const DEV_SECONDS_MODE = true; // <-- OBS
-
 type SessionType = "work" | "break"; 
 
 interface iTimerSettings {
@@ -29,15 +26,10 @@ export const SessionPage = () => {
         const saved = localStorage.getItem("tomofocus_last_settings");
         return saved ? JSON.parse(saved) : { focusMinutes: 25, breakMinutes: 5, sets: 4};
     }, []);
-
-    // const toSeconds = (value: number) =>
-    // DEV_SECONDS_MODE ? value : value * 60;
-
     
     const [sessionType, setSessionType] = useState<SessionType>("work");
     const [currentSet, setCurrentSet] = useState(0); 
     const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
-    //const [timeLeft, setTimeLeft] = useState(toSeconds(settings.focusMinutes)); // BYT för sekunder
     const [isFinished, setIsFinished] = useState(false); 
     const [timerStatus, setTimerStatus] = useState<"running" | "paused">("running");
     const [sessionDuration, setSessionDuration] = useState(settings.focusMinutes * 60);
@@ -53,7 +45,7 @@ export const SessionPage = () => {
                 setIsFinished(true);
                 playSound("success");
                 showNotification("Session complete 🎉", "Time to celebrate!");
-                // navigate("/complete");
+
                 return timeLeft;
             }
             setCurrentSet(nextSet);
@@ -61,7 +53,6 @@ export const SessionPage = () => {
             playSound("break");
             showNotification("Break time ☕", "Great job staying focused! Time for a short break.");
             return settings.breakMinutes * 60;
-            //return toSeconds(settings.breakMinutes); // BYT m ovanstående för sekunder
         }
 
         setSessionType("work");
@@ -69,7 +60,6 @@ export const SessionPage = () => {
         showNotification("Back to focus 🍅", "Break is over. Let's go back to work!");
         setSessionDuration(settings.focusMinutes * 60);
         return settings.focusMinutes * 60;
-        //return toSeconds(settings.focusMinutes); //BYT m ovanstående rad för sekunder
 
     }, [sessionType, currentSet, settings, isFinished, timeLeft]);
 
@@ -99,9 +89,6 @@ export const SessionPage = () => {
     }, [isFinished, navigate]); 
 
     const formatTime = (seconds: number) => {
-        //if (DEV_SECONDS_MODE) { // Ta bort dessa 3 rader sen! 
-           // return `${seconds}s`;
-        //}
         const minutes = Math.floor(seconds/60);
         const remainingSeconds = seconds % 60;
         return `${minutes.toString().padStart(2, "0")}: ${remainingSeconds.toString().padStart(2, "0")}`;
@@ -152,5 +139,5 @@ export const SessionPage = () => {
             </section>
         </div>
         </>
-    )
-}
+    );
+};

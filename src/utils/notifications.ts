@@ -23,10 +23,3 @@ export const showNotification = async (title: string, body: string) => {
         tag: "tomofocus-session",
     });
 };
-
-// Notifikationer fungerar i Firefox men inte i Chrome ??
-// console.log({
-//     permission: Notification.permission,
-//     permissionsFromStorage: localStorage.getItem(PERMISSION_KEY),
-// });
-
