@@ -9,6 +9,7 @@ import focus75 from "../assets/focus-75.png";
 import breakImage from "../assets/break-image.png";
 import { playSound } from "../utils/sound";
 import { showNotification } from "../utils/notifications";
+import { Pause, Play, Home } from "lucide-react";
 
 
 type SessionType = "work" | "break"; 
@@ -131,10 +132,21 @@ export const SessionPage = () => {
                 <div className="flex gap-4 w-full my-6">
                     <button 
                     onClick={() => setTimerStatus((prev) => (prev === "running" ? "paused" : "running"))} 
-                    className="flex-1 bg-border hover:brightness-110 text-background rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">
-                        {timerStatus === "running" ? "Pause" : "Resume"}
+                    className="flex-1 bg-primary hover:brightness-110 text-third rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer">
+                        {timerStatus === "running" ? (
+                            <>
+                                <Pause className="w-4 h-4 opacity-70" aria-hidden="true" />
+                                <span>Pause</span>
+                            </> ) : (
+                            <>
+                                <Play className="w-4 h-4 opacity-70" aria-hidden="true" />
+                                <span>Resume</span>
+                            </>)}
                     </button>
-                    <button onClick={() => navigate("/")} className="flex-1 border-2 border-border rounded-xl py-2 cursor-pointer">Reset/Home</button>
+                    <button onClick={() => navigate("/")} className="flex-1 flex items-center justify-center bg-sparkle hover:brightness-110 text-third border-2 border-border rounded-xl py-3 cursor-pointer">
+                        <Home className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
+                        <span>Reset / Home</span>
+                    </button>
                 </div>
             </section>
         </div>

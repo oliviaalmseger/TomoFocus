@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { playSound, unlockSounds } from "../utils/sound";
+import { ArrowLeft, Play } from "lucide-react";
 
 type PresetType = "classic" | "last" | "custom";
 
@@ -189,20 +190,22 @@ export const TimerSettings = () => {
               <button
                 type="button"
                 onClick={() => navigate("/")}
-                className="flex-1 bg-secondary hover:brightness-110 text-black border-2 border-border rounded-xl py-3 cursor-pointer"
+                className="flex-1 flex items-center justify-center bg-secondary hover:brightness-110 text-black border-2 border-border rounded-xl py-3 cursor-pointer"
               >
+                <ArrowLeft className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
                 Go back
               </button>
               <button
                 type="submit"
                 disabled={!isValid}
                 aria-disabled={!isValid}
-                className={`flex-1 bg-primary border-2 border-border rounded-xl py-3 font-semibold ${
+                className={`flex-1 flex items-center justify-center bg-primary border-2 border-border rounded-xl py-3 font-semibold ${
                   isValid
-                    ? "bg-primary hover:brightness-110 border-border cursor-pointer"
+                    ? "hover:brightness-110 border-border cursor-pointer"
                     : "bg-gray-400 border-gray-500 cursor-not-allowed"
                 }`}
               >
+                <Play className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
                 Start timer
               </button>
             </div>
