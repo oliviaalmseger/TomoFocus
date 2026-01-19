@@ -46,8 +46,8 @@ export const PermissionModal = ({onClose}: iPermissionModalProps) => {
                     <p className="text-left font-style: italic text-border"><span className="font-semibold">Note: </span>Notification support may vary depending on browser and device.</p>
                     <p className="text-left font-style: italic text-border">For best results on iPhone, add the app to your home screen.</p>
                 </section>
-                <button onClick={handleAllow} className="bg-sparkle hover:brightness-110 transition-colors border-2 border-border mt-4 py-2 rounded-2xl text-third font-semibold">Allow</button>
-                <button onClick={handleDecline} className="underline hover:text-secondary">Decline</button>
+                <button onClick={handleAllow} className="bg-sparkle hover:brightness-110 transition-colors mt-4 py-3 rounded-2xl text-third font-semibold focus-ring">Allow</button>
+                <button onClick={handleDecline} className="underline hover:text-secondary focus-ring">Decline</button>
             </div>
         </div>
         </>

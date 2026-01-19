@@ -24,7 +24,7 @@ export const Error = () => {
 
         <button
           onClick={() => navigate("/")}
-          className="mt-4 bg-primary border-2 border-border rounded-xl px-6 py-2 hover:brightness-110"
+          className="mt-4 bg-primary font-semibold rounded-xl px-6 py-3 hover:brightness-110 focus-ring"
         >
           Go back home
         </button>

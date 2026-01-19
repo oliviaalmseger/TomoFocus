@@ -15,7 +15,7 @@ export const CompletePage = () => {
           <p>You completed all your Pomodoro sets.</p>
           <p>Great job staying focused!</p>
 
-          <div className="w-64 h-64 bg-background border-4 border-border rounded-2xl flex items-center justify-center my-5">
+          <div className="w-64 h-64 bg-background flex items-center justify-center my-5">
             <img
               src={completeImage}
               alt="Celebrating tomato character"
@@ -28,7 +28,7 @@ export const CompletePage = () => {
             <div className="flex gap-4 w-full">
               <button
                 onClick={() => navigate("/settings")}
-                className="flex-1 flex items-center justify-center my-2 bg-primary hover:brightness-110 text-third rounded-xl px-6 py-3 font-semibold cursor-pointer"
+                className="flex-1 flex items-center justify-center my-2 bg-primary hover:brightness-110 text-third rounded-xl px-6 py-3 font-semibold cursor-pointer focus-ring"
               >
                 <Play className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
                 <span>Yes, let's go!</span>
@@ -36,7 +36,7 @@ export const CompletePage = () => {
 
               <button
                 onClick={() => navigate("/")}
-                className="flex-1 flex items-center justify-center my-2 bg-primary hover:brightness-110 text-third rounded-xl px-6 py-3 cursor-pointer"
+                className="flex-1 flex items-center justify-center my-2 border-2 border-yellow-700/75 hover:brightness-110 text-third hover:font-semibold rounded-xl px-6 py-3 cursor-pointer focus-ring"
               >
                 <Home className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
                 <span>Go to home</span>

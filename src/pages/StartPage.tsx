@@ -25,7 +25,7 @@ export const StartPage = () => {
                     <p className="mt-6 font-bold">Click the button below to get started</p>
                     <button
                     onClick={handleStart}
-                    className="bg-primary hover:brightness-110 transition-colors border-2 border-border text-third py-3 px-6 rounded-xl">Time to Focus!</button>
+                    className="bg-primary hover:brightness-110 transition-colors text-third py-3 px-6 rounded-xl focus-ring">Time to Focus!</button>
                     <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto mt-5 motion-safe:animate-spin motion-safe:[animation-duration:12s]"/>
                 </div> 
             </div>

@@ -86,10 +86,10 @@ export const TimerSettings = () => {
             <button
               type="button"
               onClick={() => selectPreset("classic")}
-              className={`flex-1 h-16 flex items-center justify-center rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center rounded-xl border-2 focus-ring ${
                 preset === "classic"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 border-border"
+                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
               } cursor-pointer`}
             >
               Classic Pomodoro
@@ -99,10 +99,10 @@ export const TimerSettings = () => {
               onClick={() => selectPreset("last")}
               disabled={!hasLastSettings}
               aria-disabled={!hasLastSettings}
-              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 focus-ring ${
                 preset === "last"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 border-border"
+                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
               } ${!hasLastSettings ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               Last settings
@@ -110,10 +110,10 @@ export const TimerSettings = () => {
             <button
               type="button"
               onClick={() => selectPreset("custom")}
-              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 ${
+              className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 focus-ring ${
                 preset === "custom"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 border-border"
+                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
               } cursor-pointer`}
             >
               Customize timer
@@ -141,7 +141,7 @@ export const TimerSettings = () => {
                 value={settings.focusMinutes}
                 disabled={preset !== "custom"}
                 onChange={(e) => handleChange("focusMinutes", e.target.value)}
-                className="border-2 border-border rounded-xl p-2"
+                className="border-2 border-border rounded-xl p-2 focus-ring"
               />
             </label>
             <label
@@ -163,7 +163,7 @@ export const TimerSettings = () => {
                 value={settings.breakMinutes}
                 disabled={preset !== "custom"}
                 onChange={(e) => handleChange("breakMinutes", e.target.value)}
-                className="border-2 border-border rounded-xl p-2"
+                className="border-2 border-border rounded-xl p-2 focus-ring"
               />
             </label>
             <label htmlFor="sets" className="flex flex-col gap-1 font-semibold">
@@ -182,7 +182,7 @@ export const TimerSettings = () => {
                 value={settings.sets}
                 disabled={preset !== "custom"}
                 onChange={(e) => handleChange("sets", e.target.value)}
-                className="border-2 border-border rounded-xl p-2"
+                className="border-2 border-border rounded-xl p-2 focus-ring"
               />
             </label>
 
@@ -190,22 +190,22 @@ export const TimerSettings = () => {
               <button
                 type="button"
                 onClick={() => navigate("/")}
-                className="flex-1 flex items-center justify-center bg-secondary hover:brightness-110 text-black border-2 border-border rounded-xl py-3 cursor-pointer"
+                className="flex-1 flex items-center justify-center bg-background hover:font-semibold text-third border-2 border-yellow-700/75 rounded-xl py-3 cursor-pointer focus-ring"
               >
-                <ArrowLeft className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
+                <ArrowLeft className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
                 Go back
               </button>
               <button
                 type="submit"
                 disabled={!isValid}
                 aria-disabled={!isValid}
-                className={`flex-1 flex items-center justify-center bg-primary border-2 border-border rounded-xl py-3 font-semibold ${
+                className={`flex-1 flex items-center justify-center bg-primary rounded-xl py-3 text-third font-semibold focus-ring ${
                   isValid
                     ? "hover:brightness-110 border-border cursor-pointer"
                     : "bg-gray-400 border-gray-500 cursor-not-allowed"
                 }`}
               >
-                <Play className="w-4 h-4 mr-3 opacity-70" aria-hidden="true" />
+                <Play className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
                 Start timer
               </button>
             </div>

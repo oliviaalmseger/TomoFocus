@@ -172,7 +172,7 @@ export const SessionPage = () => {
                   prev === "running" ? "paused" : "running"
                 )
               }
-              className="flex-1 bg-primary hover:brightness-110 text-third rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer"
+              className="flex-1 bg-primary hover:brightness-110 text-third hover:font-semibold rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer focus-ring"
             >
               {timerStatus === "running" ? (
                 <>
@@ -188,7 +188,7 @@ export const SessionPage = () => {
             </button>
             <button
               onClick={() => navigate("/")}
-              className="flex-1 flex items-center justify-center bg-sparkle hover:brightness-110 text-third border-2 border-border rounded-xl py-3 cursor-pointer"
+              className="flex-1 flex items-center justify-center border-2 border-yellow-700/75 hover:brightness-110 text-third hover:font-semibold rounded-xl py-3 cursor-pointer focus-ring"
             >
               <Home className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
               <span>Reset / Home</span>

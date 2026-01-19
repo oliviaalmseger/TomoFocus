@@ -18,6 +18,16 @@
   }
 }
 
+@layer utilities {
+  .focus-ring {
+    @apply focus-visible:outline-none
+           focus-visible:ring-2
+           focus-visible:ring-black
+           focus-visible:ring-offset-2
+           focus-visible:ring-offset-background;
+  }
+}
+
 @keyframes confetti-pop {
   0% {
     transform: translate(0, 0) scale(0.6) rotate(0deg);
