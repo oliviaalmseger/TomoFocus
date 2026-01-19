@@ -10,6 +10,7 @@ import breakImage from "../assets/break-image.png";
 import { playSound } from "../utils/sound";
 import { showNotification } from "../utils/notifications";
 import { Pause, Play, Home } from "lucide-react";
+import bgcard from "../assets/cardwide.png";
 
 
 type SessionType = "work" | "break"; 
@@ -109,15 +110,43 @@ export const SessionPage = () => {
     return (
         <> 
         <div className="flex justify-center px-4">
-            <section className="w-full max-w-[420px] flex flex-col items-center text-center gap-6 py-10">
+            <section className="w-full max-w-[420px] flex flex-col items-center text-center py-10">
 
                 <p className="text-border text-base opacity-85">
                     Set {sessionType === "work" ? currentSet + 1 : currentSet} of {settings.sets}
                 </p>
-                <h1 className="text-xl font-semibold">
+                <h1 className="text-2xl font-semibold mt-2">
                     {sessionType === "work" ? "Focus Session" : "Break Session"}
                 </h1>
 
+                <div className="relative w-full max-w-[420px] aspect-[2/3] flex items-center justify-center"> 
+                    <img src={bgcard} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-fill" />
+
+                     <div className={`relative z-10 flex flex-col items-center justify-center transition-all duration-300 ease-out
+    ${sessionType === "break" ? "gap-6 translate-y-2" : "gap-2"}
+    pl-4 pr-7 py-6`}>
+    {/* Fokus / Break-bild */}
+    {sessionType === "work" ? (
+      <img
+        src={getFocusImage()}
+        alt="Focus progress illustration"
+        className="w-full max-w-[200px] min-[350px]:max-w-[240px] max-h-[180px] min-[380px]:max-h-[230px] object-contain" />
+    ) : (
+      <img
+        src={breakImage}
+        alt="Break session illustration"
+        className="w-40 h-40  min-[350px]:w-44 min-[350px]:h-44 min-[380px]:w-48 min-[380px]:h-48 object-contain"
+      />
+    )}
+
+    {/* Timer-text */}
+    <span className=" text-3xl min-[320px]:text-5xl min-[366px]:text-5xl min-[380px]:text-[3.37rem] font-bold text-third mb-8">
+      {formatTime(timeLeft)}
+    </span>
+  </div>
+
+                </div>
+                {/* Läggas ovanpå cardet 
                 <div className="w-56 h-56 bg-border/30 border-2 border-border rounded-2xl overflow-hidden">
                 {sessionType === "work" ? (<img src={getFocusImage()} alt="Focus progress illustration" className="w-full h-full object-contain"/>) 
                 : (
@@ -127,7 +156,7 @@ export const SessionPage = () => {
 
                 <div className="text-7xl font-bold tracking-wide">
                     {formatTime(timeLeft)}
-                </div>
+                </div> */}
 
                 <div className="flex gap-4 w-full my-6">
                     <button 
