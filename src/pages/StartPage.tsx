@@ -14,8 +14,8 @@ export const StartPage = () => {
 
     return (
         <> 
-        <section className="flex justify-center px-2">
-            <div className="w-full max-w-[600px]">
+        <section className="start-bg flex-1 flex justify-center px-2">
+            <div className="relative z-10 w-full max-w-[600px] mt-4">
                 <h1 className="sr-only">TomoFocus, a timer-focus app</h1>
                 <div className="m-7 border-2 border-border rounded-2xl p-6 bg-background flex flex-col gap-2">
                     <p className="mt-5"><span className="font-semibold">TomoFocus</span> helps you stay focused using the Pomodoro technique.</p>
@@ -25,7 +25,7 @@ export const StartPage = () => {
                     <p className="mt-6 font-bold">Click the button below to get started</p>
                     <button
                     onClick={handleStart}
-                    className="bg-primary hover:brightness-110 transition-colors text-third py-3 px-6 rounded-xl focus-ring">Time to Focus!</button>
+                    className="bg-primary hover:brightness-110 transition-colors text-third font-semibold py-3 px-6 rounded-xl focus-ring">Time to Focus!</button>
                     <img src={tomoicon} alt="decorative tomato mascot" className="w-20 mx-auto mt-5 motion-safe:animate-spin motion-safe:[animation-duration:12s]"/>
                 </div> 
             </div>

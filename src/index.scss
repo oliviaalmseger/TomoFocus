@@ -26,6 +26,20 @@
            focus-visible:ring-offset-2
            focus-visible:ring-offset-background;
   }
+
+  .start-bg {
+    position: relative;
+    min-height: 100%;
+  }
+  .start-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/bg.png");
+    background-repeat: repeat;
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
 
 @keyframes confetti-pop {
