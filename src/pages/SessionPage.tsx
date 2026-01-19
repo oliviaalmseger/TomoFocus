@@ -12,173 +12,190 @@ import { showNotification } from "../utils/notifications";
 import { Pause, Play, Home } from "lucide-react";
 import bgcard from "../assets/cardwide.png";
 
-
-type SessionType = "work" | "break"; 
+type SessionType = "work" | "break";
 
 interface iTimerSettings {
-    focusMinutes: number;
-    breakMinutes: number;
-    sets: number;
+  focusMinutes: number;
+  breakMinutes: number;
+  sets: number;
 }
 
 export const SessionPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const settings = useMemo<iTimerSettings>(() => {
-        const saved = localStorage.getItem("tomofocus_last_settings");
-        return saved ? JSON.parse(saved) : { focusMinutes: 25, breakMinutes: 5, sets: 4};
-    }, []);
-    
-    const [sessionType, setSessionType] = useState<SessionType>("work");
-    const [currentSet, setCurrentSet] = useState(0); 
-    const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);    
-    const [isFinished, setIsFinished] = useState(false); 
-    const [timerStatus, setTimerStatus] = useState<"running" | "paused">("running");
-    const [sessionDuration, setSessionDuration] = useState(settings.focusMinutes * 60);
+  const settings = useMemo<iTimerSettings>(() => {
+    const saved = localStorage.getItem("tomofocus_last_settings");
+    return saved
+      ? JSON.parse(saved)
+      : { focusMinutes: 25, breakMinutes: 5, sets: 4 };
+  }, []);
 
-    const handleSessionEnd = useCallback((): number => {
-        if (isFinished) return timeLeft; 
+  const [sessionType, setSessionType] = useState<SessionType>("work");
+  const [currentSet, setCurrentSet] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(settings.focusMinutes * 60);
+  const [isFinished, setIsFinished] = useState(false);
+  const [timerStatus, setTimerStatus] = useState<"running" | "paused">(
+    "running"
+  );
+  const [sessionDuration, setSessionDuration] = useState(
+    settings.focusMinutes * 60
+  );
 
-        if (sessionType === "work") {
-            const nextSet = currentSet + 1;
+  const handleSessionEnd = useCallback((): number => {
+    if (isFinished) return timeLeft;
 
-            if (nextSet === settings.sets) {
-                setCurrentSet(nextSet);
-                setIsFinished(true);
-                playSound("success");
-                showNotification("Session complete 🎉", "Time to celebrate!");
+    if (sessionType === "work") {
+      const nextSet = currentSet + 1;
 
-                return timeLeft;
-            }
-            setCurrentSet(nextSet);
-            setSessionType("break");
-            playSound("break");
-            showNotification("Break time ☕", "Great job staying focused! Time for a short break.");
-            return settings.breakMinutes * 60;
-        }
+      if (nextSet === settings.sets) {
+        setCurrentSet(nextSet);
+        setIsFinished(true);
+        playSound("success");
+        showNotification("Session complete 🎉", "Time to celebrate!");
 
-        setSessionType("work");
-        playSound("work");
-        showNotification("Back to focus 🍅", "Break is over. Let's go back to work!");
-        setSessionDuration(settings.focusMinutes * 60);
-        return settings.focusMinutes * 60;
+        return timeLeft;
+      }
+      setCurrentSet(nextSet);
+      setSessionType("break");
+      playSound("break");
+      showNotification(
+        "Break time ☕",
+        "Great job staying focused! Time for a short break."
+      );
+      return settings.breakMinutes * 60;
+    }
 
-    }, [sessionType, currentSet, settings, isFinished, timeLeft]);
-
-    const handleSessionEndRef = useRef<() => number>(() => 0);
-    useEffect(() => {
-        handleSessionEndRef.current = handleSessionEnd;
-    }, [handleSessionEnd]);
-
-    useEffect(() => {
-        if (isFinished || timerStatus === "paused") return;
-
-        const interval = setInterval(() => {
-            setTimeLeft((prev) => {
-                if (prev <= 1) {
-                    return handleSessionEndRef.current();
-                }
-                return prev - 1;
-            });
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [isFinished, timerStatus]);
-
-    useEffect(() => {
-        if (isFinished) {
-            navigate("/complete");
-        }
-    }, [isFinished, navigate]); 
-
-    const formatTime = (seconds: number) => {
-        const minutes = Math.floor(seconds/60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, "0")}: ${remainingSeconds.toString().padStart(2, "0")}`;
-    };
-
-    const progress = sessionType === "work" ? 1 - timeLeft / sessionDuration : 0; //Start 0 - Slut 1
-    const getFocusImage = () => {
-        if (progress < 0.15) return focus0;
-        if (progress < 0.3) return focus15;
-        if (progress < 0.45) return focus30;
-        if (progress < 0.60) return focus45;
-        if (progress < 0.75) return focus60;
-        return focus75;
-    };
-
-
-    return (
-        <> 
-        <div className="flex justify-center px-4">
-            <section className="w-full max-w-[420px] flex flex-col items-center text-center py-10">
-
-                <p className="text-border text-base opacity-85">
-                    Set {sessionType === "work" ? currentSet + 1 : currentSet} of {settings.sets}
-                </p>
-                <h1 className="text-2xl font-semibold mt-2">
-                    {sessionType === "work" ? "Focus Session" : "Break Session"}
-                </h1>
-
-                <div className="relative w-full max-w-[420px] aspect-[2/3] flex items-center justify-center"> 
-                    <img src={bgcard} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-fill" />
-
-                     <div className={`relative z-10 flex flex-col items-center justify-center transition-all duration-300 ease-out
-    ${sessionType === "break" ? "gap-6 translate-y-2" : "gap-2"}
-    pl-4 pr-7 py-6`}>
-    {/* Fokus / Break-bild */}
-    {sessionType === "work" ? (
-      <img
-        src={getFocusImage()}
-        alt="Focus progress illustration"
-        className="w-full max-w-[200px] min-[350px]:max-w-[240px] max-h-[180px] min-[380px]:max-h-[230px] object-contain" />
-    ) : (
-      <img
-        src={breakImage}
-        alt="Break session illustration"
-        className="w-40 h-40  min-[350px]:w-44 min-[350px]:h-44 min-[380px]:w-48 min-[380px]:h-48 object-contain"
-      />
-    )}
-
-    {/* Timer-text */}
-    <span className=" text-3xl min-[320px]:text-5xl min-[366px]:text-5xl min-[380px]:text-[3.37rem] font-bold text-third mb-8">
-      {formatTime(timeLeft)}
-    </span>
-  </div>
-
-                </div>
-                {/* Läggas ovanpå cardet 
-                <div className="w-56 h-56 bg-border/30 border-2 border-border rounded-2xl overflow-hidden">
-                {sessionType === "work" ? (<img src={getFocusImage()} alt="Focus progress illustration" className="w-full h-full object-contain"/>) 
-                : (
-                    <img src={breakImage} alt="Break session illustration" className="w-full h-full object-contain"/>
-                )}
-                </div>
-
-                <div className="text-7xl font-bold tracking-wide">
-                    {formatTime(timeLeft)}
-                </div> */}
-
-                <div className="flex gap-4 w-full my-6">
-                    <button 
-                    onClick={() => setTimerStatus((prev) => (prev === "running" ? "paused" : "running"))} 
-                    className="flex-1 bg-primary hover:brightness-110 text-third rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer">
-                        {timerStatus === "running" ? (
-                            <>
-                                <Pause className="w-4 h-4 opacity-70" aria-hidden="true" />
-                                <span>Pause</span>
-                            </> ) : (
-                            <>
-                                <Play className="w-4 h-4 opacity-70" aria-hidden="true" />
-                                <span>Resume</span>
-                            </>)}
-                    </button>
-                    <button onClick={() => navigate("/")} className="flex-1 flex items-center justify-center bg-sparkle hover:brightness-110 text-third border-2 border-border rounded-xl py-3 cursor-pointer">
-                        <Home className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
-                        <span>Reset / Home</span>
-                    </button>
-                </div>
-            </section>
-        </div>
-        </>
+    setSessionType("work");
+    playSound("work");
+    showNotification(
+      "Back to focus 🍅",
+      "Break is over. Let's go back to work!"
     );
+    setSessionDuration(settings.focusMinutes * 60);
+    return settings.focusMinutes * 60;
+  }, [sessionType, currentSet, settings, isFinished, timeLeft]);
+
+  const handleSessionEndRef = useRef<() => number>(() => 0);
+  useEffect(() => {
+    handleSessionEndRef.current = handleSessionEnd;
+  }, [handleSessionEnd]);
+
+  useEffect(() => {
+    if (isFinished || timerStatus === "paused") return;
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          return handleSessionEndRef.current();
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isFinished, timerStatus]);
+
+  useEffect(() => {
+    if (isFinished) {
+      navigate("/complete");
+    }
+  }, [isFinished, navigate]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}: ${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const progress = sessionType === "work" ? 1 - timeLeft / sessionDuration : 0; //Start 0 - Slut 1
+  const getFocusImage = () => {
+    if (progress < 0.15) return focus0;
+    if (progress < 0.3) return focus15;
+    if (progress < 0.45) return focus30;
+    if (progress < 0.6) return focus45;
+    if (progress < 0.75) return focus60;
+    return focus75;
+  };
+
+  return (
+    <>
+      <div className="flex justify-center px-4">
+        <section className="w-full max-w-[420px] flex flex-col items-center text-center py-10">
+          <p className="text-border text-base opacity-85">
+            Set {sessionType === "work" ? currentSet + 1 : currentSet} of{" "}
+            {settings.sets}
+          </p>
+          <h1 className="text-2xl font-semibold mt-2">
+            {sessionType === "work" ? "Focus Session" : "Break Session"}
+          </h1>
+
+          <div className="relative w-full max-w-[420px] aspect-[2/3] flex items-center justify-center">
+            <img
+              src={bgcard}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-fill"
+            />
+
+            <div
+              className={`relative z-10 flex flex-col items-center justify-center transition-all duration-300 ease-out
+    ${sessionType === "break" ? "gap-6 translate-y-2" : "gap-2"}
+    pl-4 pr-7 py-6`}
+            >
+              {/* Fokus / Break-bild */}
+              {sessionType === "work" ? (
+                <img
+                  src={getFocusImage()}
+                  alt="Focus progress illustration"
+                  className="w-full max-w-[200px] min-[350px]:max-w-[240px] max-h-[180px] min-[380px]:max-h-[230px] object-contain"
+                />
+              ) : (
+                <img
+                  src={breakImage}
+                  alt="Break session illustration"
+                  className="w-40 h-40  min-[350px]:w-44 min-[350px]:h-44 min-[380px]:w-48 min-[380px]:h-48 object-contain"
+                />
+              )}
+
+              {/* Timer-text */}
+              <span className=" text-3xl min-[320px]:text-5xl min-[366px]:text-5xl min-[380px]:text-[3.37rem] font-bold text-third mb-8">
+                {formatTime(timeLeft)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-4 w-full my-6">
+            <button
+              onClick={() =>
+                setTimerStatus((prev) =>
+                  prev === "running" ? "paused" : "running"
+                )
+              }
+              className="flex-1 bg-primary hover:brightness-110 text-third rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              {timerStatus === "running" ? (
+                <>
+                  <Pause className="w-4 h-4 opacity-70" aria-hidden="true" />
+                  <span>Pause</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-4 h-4 opacity-70" aria-hidden="true" />
+                  <span>Resume</span>
+                </>
+              )}
+            </button>
+            <button
+              onClick={() => navigate("/")}
+              className="flex-1 flex items-center justify-center bg-sparkle hover:brightness-110 text-third border-2 border-border rounded-xl py-3 cursor-pointer"
+            >
+              <Home className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
+              <span>Reset / Home</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </>
+  );
 };
