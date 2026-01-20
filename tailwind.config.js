@@ -13,6 +13,14 @@ export default {
         third: "var(--color-third)",
         sparkle: "var(--color-sparkle)",
         border: "var(--color-border)",
+
+        confetti: {
+          pink:   "#f29fb0",
+          purple: "#c8b2f0",
+          blue:   "#afcfed",
+          green:  "#a9dec6",
+          yellow: "#ffd77a",
+        },
       },
       fontFamily: {
         sans: ["Roboto", "system-ui", "sans-serif"],
@@ -20,4 +28,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

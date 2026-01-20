@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const COLORS = ["bg-primary", "bg-secondary", "bg-third", "bg-sparkle"];
+const COLORS = ["bg-confetti-pink", "bg-confetti-purple", "bg-confetti-blue", "bg-confetti-green", "bg-confetti-yellow"];
 
 type GlitterPiece = {
   id: number;
@@ -29,7 +29,7 @@ export const Confetti = () => {
         {glitter.map((glitter, i) => (
           <span
             key={glitter.id}
-            className={`absolute bottom-0 w-2 h-3 animate-confetti ${COLORS[i % COLORS.length]}`}
+            className={`absolute bottom-0 w-2 h-3 rounded-md animate-confetti ${COLORS[i % COLORS.length]}`}
             style={{
               left: `${glitter.left}%`,
               animationDelay: `${glitter.delay}s`,
