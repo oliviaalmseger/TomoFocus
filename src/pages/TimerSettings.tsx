@@ -89,7 +89,7 @@ export const TimerSettings = () => {
               className={`flex-1 h-16 flex items-center justify-center rounded-xl border-2 focus-ring ${
                 preset === "classic"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
+                  : "hover:font-semibold border-border"
               } cursor-pointer`}
             >
               Classic Pomodoro
@@ -102,7 +102,7 @@ export const TimerSettings = () => {
               className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 focus-ring ${
                 preset === "last"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
+                  : "hover:font-semibold border-border"
               } ${!hasLastSettings ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               Last settings
@@ -113,7 +113,7 @@ export const TimerSettings = () => {
               className={`flex-1 h-16 flex items-center justify-center px-1 rounded-xl border-2 focus-ring ${
                 preset === "custom"
                   ? "bg-sparkle hover:brightness-110 border-border font-semibold"
-                  : "bg-background hover:brightness-110 hover:font-semibold border-border"
+                  : "hover:font-semibold border-border"
               } cursor-pointer`}
             >
               Customize timer
