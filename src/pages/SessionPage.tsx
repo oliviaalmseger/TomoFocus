@@ -10,7 +10,7 @@ import breakImage from "../assets/break-image.png";
 import { playSound } from "../utils/sound";
 import { showNotification } from "../utils/notifications";
 import { Pause, Play, Home } from "lucide-react";
-import bgcard from "../assets/cardwide.png";
+import bgcard from "../assets/bg-card.png";
 
 type SessionType = "work" | "break";
 
@@ -130,12 +130,12 @@ export const SessionPage = () => {
             {sessionType === "work" ? "Focus Session" : "Break Session"}
           </h1>
 
-          <div className="relative w-full max-w-[420px] aspect-[2/3] flex items-center justify-center">
+          <div className="relative w-full mt-5 max-w-[420px] aspect-[1/1] flex items-center justify-center">
             <img
               src={bgcard}
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-fill"
+              className="absolute inset-0 w-full h-full object-contain"
             />
 
             <div
@@ -159,7 +159,7 @@ export const SessionPage = () => {
               )}
 
               {/* Timer-text */}
-              <span className=" text-3xl min-[320px]:text-5xl min-[366px]:text-5xl min-[380px]:text-[3.37rem] font-bold text-third mb-8">
+              <span className=" text-3xl min-[320px]:text-5xl min-[366px]:text-5xl min-[380px]:text-[3.37rem] min-[430px]:text-[4.37rem] font-bold text-third mb-8">
                 {formatTime(timeLeft)}
               </span>
             </div>
