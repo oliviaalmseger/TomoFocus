@@ -2,9 +2,24 @@ import { useNavigate } from "react-router";
 import completeImage from "../assets/complete-image.png";
 import { Confetti } from "../components/Confetti";
 import { Play, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const CompletePage = () => {
   const navigate = useNavigate();
+  const [quote, setQuote] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const response = await fetch("/api/quotes/random");
+        const data = await response.json();
+        setQuote(data.text);
+      } catch {
+        setQuote(null); //Eller vill jag visa en fast fallbacktext?
+      }
+    };
+    fetchQuote();
+  }, []);
 
   return (
     <>
@@ -23,9 +38,11 @@ export const CompletePage = () => {
             />
           </div>
 
-          <p className="my-2 text-sm font-style: italic text-border">
-            "Implementering av citat kommer här"
+          { quote && (
+            <p className="my-2 text-sm font-style: italic text-border">
+            "{quote}"
           </p>
+          )}
 
           <div className="flex flex-col items-center gap-4 w-full my-6">
             <p className="mt-3 font-semibold">Ready for another round?</p>
