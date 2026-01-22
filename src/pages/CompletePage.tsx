@@ -23,6 +23,10 @@ export const CompletePage = () => {
             />
           </div>
 
+          <p className="my-2 text-sm font-style: italic text-border">
+            "Implementering av citat kommer här"
+          </p>
+
           <div className="flex flex-col items-center gap-4 w-full my-6">
             <p className="mt-3 font-semibold">Ready for another round?</p>
             <div className="flex gap-4 w-full">
