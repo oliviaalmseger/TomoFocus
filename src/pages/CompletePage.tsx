@@ -11,7 +11,13 @@ export const CompletePage = () => {
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const response = await fetch("/api/quotes/random");
+        const API_URL = import.meta.env.VITE_API_URL;
+
+        if (!API_URL) {
+          throw new Error("API URL is missing");
+        }
+        
+        const response = await fetch(`${API_URL}/api/quotes/random`);
         const data = await response.json();
         setQuote(data.text);
       } catch {
