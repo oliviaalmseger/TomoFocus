@@ -110,10 +110,34 @@ Complete page
   - Sufficient color contrast
   - ARIA roles where appropriate
 
-- Accessibility and performance were tested using:
+---
+
+## ♿ Accessibility & Quality Evaluation
+Accessibility and performance were tested using: 
 - Lighthouse
-- WAVE
-- Manual testing
+- WAVE 
+- Manual testing 
+
+### Lighthouse evaluation
+![Lighthouse screenshot](lighthouse.png)
+The application was evaluated using Google Lighthouse to assess performance, accessibility, best practices, and search engine optimization.
+
+**Performance: 94**
+The application demonstrates strong performance with fast initial rendering and minimal main-thread blocking. First Contentful Paint (0.8s), Largest Contentful Paint (2.0s), and Total Blocking Time (0ms) indicate a responsive and efficient user experience. Performance optimizations include reserving layout space for images and converting key visual assets (such as the logo) to modern image formats. Remaining performance impact is primarily related to larger illustrative background assets, which were intentionally preserved to maintain visual quality.
+
+**Accessibility: 100**
+The application follows accessibility best practices, including semantic HTML, keyboard navigation, sufficient color contrast, and properly labeled ARIA dialogs.
+
+**Best Practices: 100**
+The project adheres to modern web standards, including secure use of browser APIs, responsive design, and Progressive Web App implementation.
+
+**SEO: 100**
+Search engine optimization is addressed through descriptive meta tags, Open Graph metadata, structured data (JSON-LD), and a valid robots.txt configuration.
+
+Overall, the Lighthouse results confirm that the application meets high standards for performance, accessibility, and maintainability.
+
+### WAVE evaluation
+Accessibility was additionally evaluated using the WAVE (Web Accessibility Evaluation Tool) to identify potential accessibility issues related to structure, contrast, labeling, and ARIA usage. All primary application views (start page, timer settings, session view, and completion screen) achieved a 10/10 AIM score in WAVE, indicating that no accessibility errors or contrast issues were detected. The results confirm that accessibility considerations were applied consistently across the entire application, including interactive components such as modal dialogs, buttons, and dynamic content updates. Manual testing was also performed to verify keyboard navigation, focus order, and modal behavior beyond what automated tools can detect.
 
 ---
 
