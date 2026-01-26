@@ -40,6 +40,12 @@ export const SessionPage = () => {
   const [sessionDuration, setSessionDuration] = useState(
     settings.focusMinutes * 60
   );
+  const endTimeRef = useRef<number | null>(null);
+
+  useEffect(() => {
+  endTimeRef.current = Date.now() + settings.focusMinutes * 60 * 1000;
+}, [settings.focusMinutes]);
+
 
   const handleSessionEnd = useCallback((): number => {
     if (isFinished) return timeLeft;
@@ -62,7 +68,10 @@ export const SessionPage = () => {
         "Break time ☕",
         "Great job staying focused! Time for a short break."
       );
-      return settings.breakMinutes * 60;
+      // return settings.breakMinutes * 60;
+      const nextDuration = settings.breakMinutes * 60;
+      endTimeRef.current = Date.now() + nextDuration * 1000;
+      return nextDuration;
     }
 
     setSessionType("work");
@@ -71,8 +80,12 @@ export const SessionPage = () => {
       "Back to focus 🍅",
       "Break is over. Let's go back to work!"
     );
-    setSessionDuration(settings.focusMinutes * 60);
-    return settings.focusMinutes * 60;
+    // setSessionDuration(settings.focusMinutes * 60);
+    // return settings.focusMinutes * 60;
+    const nextDuration = settings.focusMinutes * 60;
+    setSessionDuration(nextDuration);
+    endTimeRef.current = Date.now() + nextDuration * 1000;
+    return nextDuration;
   }, [sessionType, currentSet, settings, isFinished, timeLeft]);
 
   const handleSessionEndRef = useRef<() => number>(() => 0);
@@ -84,12 +97,16 @@ export const SessionPage = () => {
     if (isFinished || timerStatus === "paused") return;
 
     const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          return handleSessionEndRef.current();
+        if (!endTimeRef.current) return;
+        
+        const remaining = Math.max(
+          0, Math.round((endTimeRef.current - Date.now()) / 1000)
+        );
+        setTimeLeft(remaining);
+        if (remaining <= 0) {
+          handleSessionEndRef.current();
         }
-        return prev - 1;
-      });
+        
     }, 1000);
     return () => clearInterval(interval);
   }, [isFinished, timerStatus]);
@@ -167,11 +184,19 @@ export const SessionPage = () => {
 
           <div className="flex gap-4 w-full my-6">
             <button
-              onClick={() =>
-                setTimerStatus((prev) =>
-                  prev === "running" ? "paused" : "running"
-                )
-              }
+            onClick={() => {
+              setTimerStatus((prev) => {
+                if (prev === "paused" && endTimeRef.current) {
+                  endTimeRef.current = Date.now() + timeLeft * 1000;
+                }
+                return prev === "running" ? "paused" : "running";
+              });
+            }}
+              // onClick={() =>
+              //   setTimerStatus((prev) =>
+              //     prev === "running" ? "paused" : "running"
+              //   )
+              // }
               className="flex-1 bg-primary hover:brightness-110 text-third hover:font-semibold rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer focus-ring"
             >
               {timerStatus === "running" ? (
