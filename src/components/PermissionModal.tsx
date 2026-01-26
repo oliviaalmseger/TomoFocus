@@ -41,12 +41,12 @@ export const PermissionModal = ({onClose}: iPermissionModalProps) => {
                 <h2 id="permission-dialog-title" className="text-lg font-bold mb-4">
                     Allow sounds & notifications
                 </h2>
-                <p id="permission-dialog-description">TomoFocus uses gentle sounds and notifications to guide you between focus and break sessions.</p>
+                <p id="permission-dialog-description" className="font-semibold mb-4">TomoFocus uses gentle sounds and notifications to guide you between focus and break sessions.</p>
                 <section>
                     <p className="text-left font-style: italic text-border"><span className="font-semibold">Note: </span>Notification support may vary depending on browser and device.</p>
                     <p className="text-left font-style: italic text-border">For best results on iPhone, add the app to your home screen.</p>
                 </section>
-                <button onClick={handleAllow} className="bg-sparkle hover:brightness-110 transition-colors mt-4 py-3 rounded-2xl text-third hover:font-semibold focus-ring">Allow</button>
+                <button onClick={handleAllow} className="bg-primary hover:brightness-110 transition-colors mt-4 py-3 rounded-2xl text-third hover:font-semibold focus-ring">Allow</button>
                 <button onClick={handleDecline} className="underline hover:font-semibold focus-ring">Decline</button>
             </div>
         </div>
