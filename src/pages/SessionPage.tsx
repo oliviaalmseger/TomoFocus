@@ -165,12 +165,16 @@ export const SessionPage = () => {
                 <img
                   src={getFocusImage()}
                   alt="Focus progress illustration"
+                  width={240}
+                  height={240}
                   className="w-full max-w-[200px] min-[350px]:max-w-[240px] max-h-[180px] min-[380px]:max-h-[230px] object-contain"
                 />
               ) : (
                 <img
                   src={breakImage}
                   alt="Break session illustration"
+                  width={192}
+                  height={192}
                   className="w-40 h-40  min-[350px]:w-44 min-[350px]:h-44 min-[380px]:w-48 min-[380px]:h-48 object-contain"
                 />
               )}

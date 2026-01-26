@@ -40,6 +40,8 @@ export const CompletePage = () => {
             <img
               src={completeImage}
               alt="Celebrating tomato character"
+              width={256}
+              height={256}
               className="w-full h-full object-contain"
             />
           </div>
