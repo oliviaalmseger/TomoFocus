@@ -63,16 +63,3 @@ self.addEventListener("notificationclick", event => { // Hanterar klick på noti
         })
     );
 });
-
-// Safari notification handler
-self.addEventListener("message", (event) => {
-  if (event.data?.type !== "SHOW_NOTIFICATION") return;
-
-  const { title, body } = event.data.payload;
-
-  self.registration.showNotification(title, {
-    body,
-    icon: "/tomoicon-192.png",
-  });
-});
-
