@@ -161,6 +161,7 @@ The application was tested across multiple browsers to account for platform-spec
 - **Audio API** – local sound playback
 - **Notification API** – session transition alerts
 - **LocalStorage** – saving user preferences and permissions
+- **Screen Wake Lock API** – keeps the screen awake during active focus sessions on supported devices
 
 ### Notifications and sound support 
 Audio playback works consistently across modern browsers after explicit user interaction.
@@ -172,6 +173,19 @@ Browser notifications are subject to platform and browser limitations:
 
 This behavior is expected and follows current browser security and privacy policies.
 
+---
+
+## 🍎 Platform limitations
+
+This application is built as a Progressive Web App (PWA). During testing, several platform-specific limitations were identified on iOS.
+
+On iPhone and iPad, PWAs do not support background execution of JavaScript. This means that timers, sounds, and notifications cannot be triggered while the app is inactive. The timer itself remains accurate through real-time tracking, but audio and notifications will only play once the app becomes active again.
+
+To improve reliability during active sessions, the application uses the Screen Wake Lock API to keep the screen awake. However, if the user locks the screen or switches to another app, background execution still stops. This behavior is a platform limitation of iOS Safari and PWAs, not of the application itself.
+
+For the best experience on iOS, the application should be added to the home screen and kept open while a session is running. Browser notifications in Safari may also be restricted or suppressed depending on platform, browser state, and system settings. This is a known limitation of Safari and iOS PWAs.
+
+---
 
 ## 🔌 Backend API – Inspirational Quotes  
 
