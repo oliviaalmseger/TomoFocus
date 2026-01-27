@@ -20,12 +20,31 @@ self.addEventListener("activate", (event) => { // Körs när SW aktiveras & rens
     self.clients.claim(); // Så att SW börjar användas direkt utan att omladdning av sidan krävs
 });
 
-/*Fångar upp navigeringsförfrågningar så att index-html hämtas från cache vid offlineläge, dvs routingen fungerar även offline */
+/*Fångar upp navigeringsförfrågningar så att index-html + assets hämtas från cache vid offlineläge, dvs routingen fungerar även offline */
 self.addEventListener("fetch", (event) => {
-    if (event.request.mode === "navigate") {
+    const { request } = event;
+    if (request.mode === "navigate") {
         event.respondWith(caches.match("/index.html").then((response) => {
-            return response || fetch(event.request);
+            return response || fetch(request);
         }));
+        return;
+    }
+    if (request.url.includes("/assets/")) {
+        event.respondWith(
+            caches.match(request).then((cached) => {
+                if (cached) return cached; 
+                return fetch(request).then((response) => {
+                    if (!response || response.status !== 200) {
+                        return response;
+                    }
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(request, responseClone);
+                    });
+                    return response;
+                });
+            })
+        );
     }
 });
 

@@ -17,7 +17,7 @@ The application combines frontend state management, browser APIs, and a custom b
 The goal of the project was to design and implement a fully functional, user-friendly focus timer that:
 - Encourages productive work sessions
 - Provides clear feedback through visuals, sound, and notifications
-- Works reliably both online and offline
+- Works both online and offline, with core functionality available after an initial online load
 - Emphasizes usability, accessibility, and a cohesive visual identity
 
 In addition to the core timer functionality, the project also includes:
@@ -120,6 +120,7 @@ Accessibility and performance were tested using:
 
 ### Lighthouse evaluation
 ![Lighthouse screenshot](lighthouse.png)
+
 The application was evaluated using Google Lighthouse to assess performance, accessibility, best practices, and search engine optimization.
 
 **Performance: 94**
@@ -226,6 +227,7 @@ TomoFocus is implemented as a Progressive Web App, allowing users to install the
 - App-like experience without requiring an app store
 
 This approach ensures accessibility, performance, and ease of use across devices.
+The application provides basic offline support after an initial online load, allowing navigation and core functionality (such as timer management) to function without a network connection, while features related to external resources, including audio, notifications, and visual assets, depend on network access and can be further developed in future work.
 
 ---
 
