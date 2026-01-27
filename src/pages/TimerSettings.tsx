@@ -76,6 +76,9 @@ export const TimerSettings = () => {
     Number(settings.breakMinutes) > 0 &&
     Number(settings.sets) > 0;
 
+  const NUMBER_ERROR = "Please enter a value greater than 0";
+  const showError = (value: string) => preset === "custom" && Number(value) <= 0;
+
   return (
     <>
       <section className="flex justify-center px-4">
@@ -127,9 +130,9 @@ export const TimerSettings = () => {
             >
               {" "}
               Work interval (minutes)
-              {preset === "custom" && Number(settings.focusMinutes) <= 0 && (
+              {showError(settings.focusMinutes) && (
                 <span className="text-sm text-gray-500">
-                  Must be greater than 0
+                  {NUMBER_ERROR}
                 </span>
               )}
               <input
@@ -150,9 +153,9 @@ export const TimerSettings = () => {
             >
               {" "}
               Break interval (minutes)
-              {preset === "custom" && Number(settings.breakMinutes) <= 0 && (
+              {showError(settings.breakMinutes) && (
                 <span className="text-sm text-gray-500">
-                  Must be greater than 0
+                  {NUMBER_ERROR}
                 </span>
               )}
               <input
@@ -169,9 +172,9 @@ export const TimerSettings = () => {
             <label htmlFor="sets" className="flex flex-col gap-1 font-semibold">
               {" "}
               Number of sets
-              {preset === "custom" && Number(settings.sets) <= 0 && (
+              {showError(settings.sets) && (
                 <span className="text-sm text-gray-500">
-                  Must be greater than 0
+                  {NUMBER_ERROR}
                 </span>
               )}
               <input
