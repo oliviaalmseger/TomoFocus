@@ -190,6 +190,9 @@ export const TimerSettings = () => {
             </label>
 
             <div className="flex gap-3 mt-4">
+              {!isValid && (
+                <p id="timer-settings-error" className="sr-only">All values must be greater than zero before starting the timer.</p>
+              )}
               <button
                 type="button"
                 onClick={() => navigate("/")}
@@ -202,6 +205,7 @@ export const TimerSettings = () => {
                 type="submit"
                 disabled={!isValid}
                 aria-disabled={!isValid}
+                aria-describedby={!isValid ? "timer-settings-error" : undefined}
                 className={`flex-1 flex items-center justify-center bg-primary rounded-xl py-3 text-third font-semibold focus-ring ${
                   isValid
                     ? "hover:brightness-110 border-border cursor-pointer"
