@@ -23,3 +23,12 @@ export const showNotification = async (title: string, body: string) => {
         tag: "tomofocus-session",
     });
 };
+
+export const showNotificationSafari = (title: string, body: string) => {
+  if (!navigator.serviceWorker?.controller) return;
+
+  navigator.serviceWorker.controller.postMessage({
+    type: "SHOW_NOTIFICATION",
+    payload: { title, body },
+  });
+};
