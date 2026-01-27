@@ -40,12 +40,44 @@ export const SessionPage = () => {
   const [sessionDuration, setSessionDuration] = useState(
     settings.focusMinutes * 60
   );
+
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
   const endTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
-  endTimeRef.current = Date.now() + settings.focusMinutes * 60 * 1000;
-}, [settings.focusMinutes]);
+    endTimeRef.current = Date.now() + settings.focusMinutes * 60 * 1000;
+  }, [settings.focusMinutes]);
 
+  const requestWakeLock = async () => {
+    try {
+      if ("wakeLock" in navigator && !wakeLockRef.current) {
+        wakeLockRef.current = await navigator.wakeLock.request("screen");
+      }
+    } catch {
+      // Wake lock request failed
+    }
+  };
+  const releaseWakeLock = async () => {
+    try {
+      if (wakeLockRef.current) {
+        await wakeLockRef.current.release();
+        wakeLockRef.current = null;
+      }
+    } catch {
+      //Wake lock release failed
+    }
+  };
+
+  useEffect(() => {
+    if (timerStatus === "running" && !isFinished) {
+      requestWakeLock();
+    } else {
+      releaseWakeLock();
+    }
+    return () => {
+      releaseWakeLock();
+    };
+  }, [timerStatus, isFinished]);
 
   const handleSessionEnd = useCallback((): number => {
     if (isFinished) return timeLeft;
@@ -97,16 +129,16 @@ export const SessionPage = () => {
     if (isFinished || timerStatus === "paused") return;
 
     const interval = setInterval(() => {
-        if (!endTimeRef.current) return;
-        
-        const remaining = Math.max(
-          0, Math.round((endTimeRef.current - Date.now()) / 1000)
-        );
-        setTimeLeft(remaining);
-        if (remaining <= 0) {
-          handleSessionEndRef.current();
-        }
-        
+      if (!endTimeRef.current) return;
+
+      const remaining = Math.max(
+        0,
+        Math.round((endTimeRef.current - Date.now()) / 1000)
+      );
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        handleSessionEndRef.current();
+      }
     }, 1000);
     return () => clearInterval(interval);
   }, [isFinished, timerStatus]);
@@ -157,8 +189,8 @@ export const SessionPage = () => {
 
             <div
               className={`relative z-10 flex flex-col items-center justify-center transition-all duration-300 ease-out
-    ${sessionType === "break" ? "gap-6 translate-y-2" : "gap-2"}
-    pl-4 pr-7 py-6`}
+              ${sessionType === "break" ? "gap-6 translate-y-2" : "gap-2"}
+              pl-4 pr-7 py-6`}
             >
               {/* Fokus / Break-bild */}
               {sessionType === "work" ? (
@@ -188,19 +220,14 @@ export const SessionPage = () => {
 
           <div className="flex gap-4 w-full my-6">
             <button
-            onClick={() => {
-              setTimerStatus((prev) => {
-                if (prev === "paused" && endTimeRef.current) {
-                  endTimeRef.current = Date.now() + timeLeft * 1000;
-                }
-                return prev === "running" ? "paused" : "running";
-              });
-            }}
-              // onClick={() =>
-              //   setTimerStatus((prev) =>
-              //     prev === "running" ? "paused" : "running"
-              //   )
-              // }
+              onClick={() => {
+                setTimerStatus((prev) => {
+                  if (prev === "paused" && endTimeRef.current) {
+                    endTimeRef.current = Date.now() + timeLeft * 1000;
+                  }
+                  return prev === "running" ? "paused" : "running";
+                });
+              }}
               className="flex-1 bg-primary hover:brightness-110 text-third hover:font-semibold rounded-xl py-3 flex items-center justify-center gap-2 cursor-pointer focus-ring"
             >
               {timerStatus === "running" ? (
@@ -216,7 +243,10 @@ export const SessionPage = () => {
               )}
             </button>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => {
+                releaseWakeLock();
+                navigate("/");
+              }}
               className="flex-1 flex items-center justify-center border-2 border-yellow-700/75 hover:brightness-110 text-third hover:font-semibold rounded-xl py-3 cursor-pointer focus-ring"
             >
               <Home className="w-4 h-4 mr-3 opacity-80" aria-hidden="true" />
