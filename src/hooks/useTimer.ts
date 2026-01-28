@@ -91,7 +91,6 @@ export const useTimer = () => {
         "Break time ☕",
         "Great job staying focused! Time for a short break."
       );
-      // return settings.breakMinutes * 60;
       const nextDuration = settings.breakMinutes * 60;
       endTimeRef.current = Date.now() + nextDuration * 1000;
       return nextDuration;
@@ -103,8 +102,6 @@ export const useTimer = () => {
       "Back to focus 🍅",
       "Break is over. Let's go back to work!"
     );
-    // setSessionDuration(settings.focusMinutes * 60);
-    // return settings.focusMinutes * 60;
     const nextDuration = settings.focusMinutes * 60;
     setSessionDuration(nextDuration);
     endTimeRef.current = Date.now() + nextDuration * 1000;

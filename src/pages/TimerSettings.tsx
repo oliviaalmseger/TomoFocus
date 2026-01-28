@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { playSound, unlockSounds } from "../utils/sound";
 import { ArrowLeft, Play } from "lucide-react";
 
+
 type PresetType = "classic" | "last" | "custom";
 
 interface iTimerSettings {
@@ -38,7 +39,7 @@ export const TimerSettings = () => {
         setSettings(JSON.parse(last));
       }
     }
-    //if type är custom, behåll redigerbara inputs med nuvarande värden.
+    // If preset is custom, keep inputs editable with current values
   };
 
   const handleChange = (key: keyof iTimerSettings, value: string) => {
@@ -78,6 +79,7 @@ export const TimerSettings = () => {
 
   const NUMBER_ERROR = "Please enter a value greater than 0";
   const showError = (value: string) => preset === "custom" && Number(value) <= 0;
+
 
   return (
     <>

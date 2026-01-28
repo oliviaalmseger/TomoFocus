@@ -4,6 +4,7 @@ import { Confetti } from "../components/Confetti";
 import { Play, Home } from "lucide-react";
 import { useEffect, useState } from "react";
 
+
 export const CompletePage = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = useState<string | null>(null);
@@ -21,12 +22,13 @@ export const CompletePage = () => {
         const data = await response.json();
         setQuote(data.text);
       } catch {
-        setQuote(null); //Eller vill jag visa en fast fallbacktext?
+        setQuote(null); // Maybe show a static fallback quote if fetch fails instead? 
       }
     };
     fetchQuote();
   }, []);
 
+  
   return (
     <>
       <Confetti />

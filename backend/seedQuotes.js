@@ -38,7 +38,7 @@ async function seed() {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected ✅");
 
-    await Quote.deleteMany();  
+    await Quote.deleteMany(); // Clear existing quotes before seeding
 
     await Quote.insertMany(quotes);
     console.log("Quotes seeded 🌱");

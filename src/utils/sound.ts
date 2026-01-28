@@ -12,6 +12,7 @@ const sounds = {
     start: new Audio(startSound),
 };
 
+
 export const playSound = (key: keyof typeof sounds) => {
     const permissions = localStorage.getItem(PERMISSION_KEY);
     if (!permissions) return; 
@@ -32,8 +33,8 @@ export const playSound = (key: keyof typeof sounds) => {
     });
 };
 
-// iOS Safari requires each Audio element to be unlocked by a user interaction 
-// //before it can be played later by timers or state changes
+/* iOS Safari requires each Audio element to be unlocked by a user interaction 
+ before it can be played later by timers or state changes*/
 export const unlockSounds = () => {
     Object.values(sounds).forEach((sound) => {
         try {

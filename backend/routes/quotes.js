@@ -2,7 +2,7 @@ const express = require("express");
 const Quote = require("../models/Quote");
 const router = express.Router();
 
-router.get("/random", async (req, res) => { // GET 
+router.get("/random", async (req, res) => {
   try {
     const quotes = await Quote.find();
     if (quotes.length === 0) {
