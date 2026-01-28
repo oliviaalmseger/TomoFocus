@@ -35,16 +35,19 @@ The project was planned and developed using an agile, sprint-based workflow with
 
 ## 📸 Screenshots
 **Startpage**
-![Start page](STARTPAGE.png)
+![Start page](start.png)
 
-Timer settings 
-*(Screenshot coming soon)*
+**Timer settings**
+![Timer settings](settings.png)
 
-Focus session / break session 
-*(Screenshot coming soon)*
+**Focus session**
+![Focus session](focus.png)
 
-Complete page 
-*(Screenshot coming soon)*
+**Complete page**
+![Complete page](complete.png)
+
+**Notifications**
+![Notifications in Firefox and Chrome](notiser.png)
 
 ---
 
@@ -201,8 +204,7 @@ As part of the project, a custom backend API was developed to deliver inspiratio
 - Exposes a REST endpoint to fetch a random quote
 - Designed to be lightweight and focused on a single responsibility
 
-The API was developed after evaluating existing solutions and determining that no available API met the project’s requirements. Creating a custom API allowed greater flexibility and ensured that the data could be tailored to the application’s needs.
-
+The API was developed after evaluating existing solutions and determining that no available API met the project’s requirements. Creating a custom API allowed greater flexibility and ensured that the data could be tailored to the application’s needs. The API is intentionally kept minimal and non-critical to core functionality, ensuring that the application remains fully usable offline.
 
 ---
 
