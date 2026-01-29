@@ -1,9 +1,14 @@
+import { useEffect, useRef } from "react";
+
 interface iPermissionModalProps {
   onClose: () => void;
 }
 
 
 export const PermissionModal = ({ onClose }: iPermissionModalProps) => {
+
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
   const handleAllow = async () => {
     let permission: NotificationPermission = "denied";
     if ("Notification" in window) { // Request notification permission
@@ -36,6 +41,10 @@ export const PermissionModal = ({ onClose }: iPermissionModalProps) => {
     onClose();
   };
 
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
+
   
   return (
     <>
@@ -47,7 +56,7 @@ export const PermissionModal = ({ onClose }: iPermissionModalProps) => {
         className="fixed inset-0 bg-white/80 flex items-center justify-center z-50"
       >
         <div className="bg-background border-4 border-border rounded-2xl pt-8 pb-12 px-5 w-[90%] max-w-sm text-center flex flex-col gap-4">
-          <h2 id="permission-dialog-title" className="text-lg font-bold mb-4">
+          <h2 id="permission-dialog-title" ref={titleRef} tabIndex={-1} className="text-lg font-bold mb-4">
             Allow sounds & notifications
           </h2>
           <p id="permission-dialog-description" className="font-semibold mb-4">

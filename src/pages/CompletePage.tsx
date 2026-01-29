@@ -34,7 +34,7 @@ export const CompletePage = () => {
       <Confetti />
       <div className="flex justify-center px-4">
         <section className="w-full max-w-[420px] flex flex-col items-center text-center py-10">
-          <h1 className="text-2xl font-bold mb-4">Congratulations!</h1>
+          <h1 className="text-2xl font-bold mb-4" aria-live="assertive">Congratulations!</h1>
           <p>You completed all your Pomodoro sets.</p>
           <p>Great job staying focused!</p>
 
@@ -49,7 +49,7 @@ export const CompletePage = () => {
           </div>
 
           { quote && (
-            <p className="my-2 text-sm font-style: italic text-border">
+            <p className="my-2 text-sm font-style: italic text-border" aria-live="polite">
             "{quote}"
           </p>
           )}

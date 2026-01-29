@@ -28,7 +28,7 @@ export const SessionPage = () => {
             Set {sessionType === "work" ? currentSet + 1 : currentSet} of{" "}
             {settings.sets}
           </p>
-          <h1 className="text-2xl font-semibold mt-2">
+          <h1 className="text-2xl font-semibold mt-2" aria-live="polite">
             {sessionType === "work" ? "Focus Session" : "Break Session"}
           </h1>
           <SessionTimerCard sessionType={sessionType} timeLeft={timeLeft} progress={progress} />

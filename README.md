@@ -120,6 +120,10 @@ Accessibility and performance were tested using:
 - Lighthouse
 - WAVE 
 - Manual testing 
+- NVDA. 
+
+Screen reader behavior was tested using NVDA, and the application follows recommended patterns for semantic structure, focus handling, and ARIA usage. Some differences in screen reader output may occur depending on browser and screen reader mode.
+
 
 ### Lighthouse evaluation
 ![Lighthouse screenshot](lighthouse.png)
