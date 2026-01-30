@@ -43,6 +43,9 @@ The project was planned and developed using an agile, sprint-based workflow with
 **Focus session**
 ![Focus session](focus.png)
 
+**Break session**
+![Break session](breaksession.png)
+
 **Complete page**
 ![Complete page](complete.png)
 
@@ -120,7 +123,7 @@ Accessibility and performance were tested using:
 - Lighthouse
 - WAVE 
 - Manual testing 
-- NVDA. 
+- NVDA
 
 Screen reader behavior was tested using NVDA, and the application follows recommended patterns for semantic structure, focus handling, and ARIA usage. Some differences in screen reader output may occur depending on browser and screen reader mode.
 
