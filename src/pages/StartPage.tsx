@@ -5,7 +5,7 @@ import { PermissionModal } from "../components/PermissionModal";
 
 
 export const StartPage = () => {
-  const SHOW_PERMISSIONS_MODAL = true; // Ändra till false sen, alt radera.
+  const SHOW_PERMISSIONS_MODAL = false; 
   const navigate = useNavigate();
   const [showPermissionModal, setShowPermissionModal] = useState(
     SHOW_PERMISSIONS_MODAL || !localStorage.getItem("tomofocus_permissions")
