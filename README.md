@@ -133,7 +133,7 @@ Screen reader behavior was tested using NVDA, and the application follows recomm
 
 The application was evaluated using Google Lighthouse to assess performance, accessibility, best practices, and search engine optimization.
 
-**Performance: 94**
+**Performance: 97**
 The application demonstrates strong performance with fast initial rendering and minimal main-thread blocking. First Contentful Paint (0.8s), Largest Contentful Paint (2.0s), and Total Blocking Time (0ms) indicate a responsive and efficient user experience. Performance optimizations include reserving layout space for images and converting key visual assets (such as the logo) to modern image formats. Remaining performance impact is primarily related to larger illustrative background assets, which were intentionally preserved to maintain visual quality.
 
 **Accessibility: 100**
